@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>User page</title>
+</head>
+<body>
+<h1>User, welcome to home page!</h1>
+<br>
+<div>
+    <h2>You can look through user info by <a href="/user/info">clicking here</a></h2>
+</div>
+<br>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout" />
+</form>
+</body>
+</html>

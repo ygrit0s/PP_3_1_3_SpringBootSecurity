@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Users</title>
+    <style>
+        table th, table td {
+            padding: 5px 5px;
+            font-family: Segoe UI, system-ui;
+            font-size: 14px;
+            border-style: solid;
+            border-width: 1px;
+            background: ivory;
+        }
+        button {
+            border-radius: 3px;
+            padding: 5px;
+            background-color: chartreuse;
+        }
+        .buttonDelete {
+            border-radius: 3px;
+            background: red;
+            color: white;
+        }
+        .buttonEdit {
+            border-radius: 3px;
+            background: gold;
+            position: relative;
+            left: 50%;
+            transform: translate(-50%, 0);
+        }
+    </style>
+</head>
+<body>
+<h1>Users</h1>
+<button onclick="window.location.href = '/admin/users/new';">Add new user</button>
+<br>
+<table>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Surname</th>
+        <th scope="col">Age</th>
+        <th scope="col">Username</th>
+        <th scope="col">Role</th>
+        <th colspan="2" scope="col">Action</th>
+    </tr>
+    <tr th:each="user : ${userList}">
+        <td><a th:href="@{'/admin/users/  ' + ${user.id}}" th:utext="${user.id}">UserId</a></td>
+        <td th:utext="${user.name}">Name</td>
+        <td th:utext="${user.surname}">Surname</td>
+        <td th:utext="${user.age}">Age</td>
+        <td th:utext="${user.username}">Username</td>>
+        <td th:utext="${user.roles}">Role</td>
+        <td>
+            <form th:action="@{'/admin/users/edit/' + ${user.id}}">
+                <input type="submit" class="buttonEdit" value="Edit"/>
+            </form>
+        </td>
+        <td>
+            <form th:method="DELETE" th:action="@{'/admin/users/delete/' + ${user.id}}">
+                <input type="submit" class="buttonDelete" value="Delete"/>
+            </form>
+        </td>
+    </tr>
+</table>
+<br>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout" />
+</form>
+</body>
+</html>
