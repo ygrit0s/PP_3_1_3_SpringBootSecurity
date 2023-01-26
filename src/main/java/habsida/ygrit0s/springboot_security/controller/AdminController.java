@@ -46,13 +46,13 @@ public class AdminController {
 	}
 	
 	@PostMapping("/admin/users/new")
-	public String addUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model) {
+	public String addUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
-			add(model);
+			return "admin/users/new";
 		}
 		if (!userService.addUser(user)) {
 			bindingResult.addError(new ObjectError("", ""));
-			add(model);
+			return "admin/users/new";
 		}
 		return "redirect:/admin/users";
 	}
