@@ -52,14 +52,15 @@
             <td>
                 <label for="age">Enter age</label>
                 <input type="number" min="0" max="127" th:field="*{age}" id="age">
-                <div th:if="${#fields.hasErrors('age')}" th:errors="*{age}">age error</div>
+                <div th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age error</div>
             </td>
         </tr>
         <tr>
             <td>
                 <label for="username">Enter username</label>
                 <input type="text" th:field="*{username}" id="username"/>
-                <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}">${usernameError}</div>
+                <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error</div>
+                <div th:if="${#fields.hasGlobalErrors()}" >Username is busy</div>
             </td>
         </tr>
         <tr>

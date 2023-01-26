@@ -16,10 +16,10 @@ public class User implements UserDetails {
 	private Long id;
 
 	@NotEmpty(message = "The field cannot be empty")
-	@Pattern(regexp = "[A-Za-z]{2,31}", message = "Name should be between 2 and 31 latin characters")
+	@Size(min = 2, max = 31, message = "Name should be between 2 and 31 characters")
 	private String name;
 
-	@Pattern(regexp = "[A-Za-z]{2,31}", message = "Surname should be between 2 and 31 latin characters")
+	@Size(min = 2, max = 31, message = "Name should be between 2 and 31 characters")
 	private String surname;
 
 	@Min(value = 0, message = "Age should be >= 0")
