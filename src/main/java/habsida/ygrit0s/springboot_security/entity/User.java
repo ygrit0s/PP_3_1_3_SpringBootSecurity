@@ -15,6 +15,7 @@ public class User implements UserDetails {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotEmpty(message = "The field cannot be empty")
 	@Pattern(regexp = "[A-Za-z]{2,31}", message = "Name should be between 2 and 31 latin characters")
 	private String name;
 
@@ -26,9 +27,12 @@ public class User implements UserDetails {
 	private Byte age;
 
 	@Column(unique = true)
-	@Pattern(regexp = "[A-Za-z]{4,15}", message = "Surname should be between 4 and 15 latin characters")
+	@NotEmpty(message = "Username cannot be empty")
+	@Size(min = 4, max = 15, message = "Name should be between 4 and 15 latin characters")
 	private String username;
 
+	@NotEmpty(message = "The field cannot be empty")
+	@Size(min = 4, message = "Password should be greater then 4 symbols")
 	private String password;
 
 	@ManyToMany(fetch = FetchType.EAGER)
