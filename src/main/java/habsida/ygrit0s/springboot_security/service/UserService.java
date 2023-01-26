@@ -14,7 +14,7 @@ import java.util.*;
 import java.security.Principal;
 
 @Service
-@Transactional
+@Transactional                                                              
 public class UserService implements UserDetailsService {
 
 	private final UserRepository userRepository;
@@ -31,7 +31,7 @@ public class UserService implements UserDetailsService {
 	}
 
 	public User getUser(Long id) {
-		Optional<User> user = userRepository.findById(id);
+		var user = userRepository.findById(id);
 		if (user.isEmpty()) {
 			throw new UsernameNotFoundException(String.format("User with id %s not found", id));
 		} else {

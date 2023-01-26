@@ -28,7 +28,7 @@ public class User implements UserDetails {
 
 	@Column(unique = true)
 	@NotEmpty(message = "Username cannot be empty")
-	@Size(min = 4, max = 15, message = "Name should be between 4 and 15 latin characters")
+	@Pattern(regexp = "[A-z0-9_.-]{2,31}", message = "Name should be of latin characters between 4 and 15 ")
 	private String username;
 
 	@NotEmpty(message = "The field cannot be empty")
