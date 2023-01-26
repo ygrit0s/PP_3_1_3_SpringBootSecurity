@@ -33,7 +33,7 @@ public class DbInit {
 			adminRoles.add(roleService.getRole(2L));
 			admin.setId(1L);
 			admin.setName("Admin");
-			admin.setSurname("A");
+			admin.setSurname("AA");
 			admin.setAge((byte) 37);
 			admin.setUsername("admin");
 			admin.setPassword("admin");
@@ -45,7 +45,7 @@ public class DbInit {
 			userRoles.add(roleService.getRole(1L));
 			user.setId(2L);
 			user.setName("User");
-			user.setSurname("U");
+			user.setSurname("UU");
 			user.setAge((byte) 27);
 			user.setUsername("user");
 			user.setPassword("user");
