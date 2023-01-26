@@ -40,8 +40,7 @@ public class UserService implements UserDetailsService {
 	}
 	
 	public boolean addUser(User user) {
-		User userDB = userRepository.findByUsername(user.getUsername());
-		if (userDB != null) {
+		if (getByUsername(user.getUsername()) != null) {
 			return false;
 		}
 		updateUser(user);
@@ -55,12 +54,11 @@ public class UserService implements UserDetailsService {
 	}
 	
 	public boolean removeUser(Long id, Principal principal) {
-		if (userRepository.findById(id).isPresent() &&
-				!id.equals(getByUsername(principal.getName()).getId())) {
-			userRepository.deleteById(id);
-			return true;
+		if (id.equals(getByUsername(principal.getName()).getId())) {
+			return false;
 		}
-		return false;
+		userRepository.deleteById(id);
+		return true;
 	}
 
 	public User getByUsername(String username) {
