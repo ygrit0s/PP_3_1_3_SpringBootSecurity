@@ -4,6 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.util.Collection;
 import java.util.Set;
 
@@ -13,14 +14,19 @@ public class User implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
+	@Pattern(regexp = "[A-Za-z]{2,31}", message = "Name should be between 2 and 31 latin characters")
 	private String name;
 
+	@Pattern(regexp = "[A-Za-z]{2,31}", message = "Surname should be between 2 and 31 latin characters")
 	private String surname;
 
+	@Min(value = 0, message = "Age should be >= 0")
+	@Max(value = 127, message = "Age should be < 128")
 	private Byte age;
 
 	@Column(unique = true)
+	@Pattern(regexp = "[A-Za-z]{4,15}", message = "Surname should be between 4 and 15 latin characters")
 	private String username;
 
 	private String password;

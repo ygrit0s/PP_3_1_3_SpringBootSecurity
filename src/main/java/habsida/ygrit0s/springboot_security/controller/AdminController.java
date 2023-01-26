@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 //import javax.validation.Valid;
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.Set;
 
@@ -47,8 +49,11 @@ public class AdminController {
 	}
 	
 	@PostMapping("/admin/users/new")
-	public String addUser(@ModelAttribute("user") User user, BindingResult bindingResult) {
-		if (!userService.addUser(user) || bindingResult.hasErrors()) {
+	public String addUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			if (!userService.addUser(user)) {
+				bindingResult.addError(new FieldError("Username Exists", "username", "Username is busy"));
+			}
 			return "admin/users/new";
 		}
 		return "redirect:/admin/users";
@@ -62,7 +67,7 @@ public class AdminController {
 	}
 
 	@PatchMapping("/admin/users/edit/{id}")
-	public String updateUser(@ModelAttribute("user") User user, BindingResult bindingResult) {
+	public String updateUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			return "admin/users/edit";
 		} else {
