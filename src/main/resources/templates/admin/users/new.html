@@ -60,7 +60,7 @@
                 <label for="username">Enter username</label>
                 <input type="text" th:field="*{username}" id="username"/>
                 <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error</div>
-                <div th:if="${#fields.hasGlobalErrors()}" >Username is busy</div>
+                <div th:if="${#fields.hasGlobalErrors()}">Username is busy!</div>
             </td>
         </tr>
         <tr>

@@ -46,7 +46,8 @@ public class AdminController {
 	}
 	
 	@PostMapping("/admin/users/new")
-	public String addUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+	public String addUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model) {
+		model.addAttribute("roleList", roleService.roleList());
 		if (bindingResult.hasErrors()) {
 			return "admin/users/new";
 		}
@@ -75,10 +76,8 @@ public class AdminController {
 	}
 
 	@DeleteMapping("/admin/users/delete/{id}")
-	public String removeUser(@PathVariable("id") long id, Principal principal, Model model) {
-		if (!userService.removeUser(id, principal)) {
-			model.addAttribute("principalError", "You can't delete yourself");
-		}
+	public String removeUser(@PathVariable("id") long id, Principal principal) {
+		userService.removeUser(id, principal);
 		return "redirect:/admin/users";
 	}
 }

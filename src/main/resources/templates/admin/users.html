@@ -50,7 +50,7 @@
         <td th:utext="${user.name}">Name</td>
         <td th:utext="${user.surname}">Surname</td>
         <td th:utext="${user.age}">Age</td>
-        <td th:utext="${user.username}">Username</td>>
+        <td th:utext="${user.username}">Username</td>
         <td th:utext="${user.roles}">Role</td>
         <td>
             <form th:action="@{'/admin/users/edit/' + ${user.id}}">
@@ -64,6 +64,7 @@
         </td>
     </tr>
 </table>
+
 <br>
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Logout" />
