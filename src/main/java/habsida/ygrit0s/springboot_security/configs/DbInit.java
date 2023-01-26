@@ -5,8 +5,7 @@ import habsida.ygrit0s.springboot_security.entity.*;
 import habsida.ygrit0s.springboot_security.service.*;
 
 import javax.annotation.PostConstruct;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Component
 public class DbInit {
@@ -28,28 +27,23 @@ public class DbInit {
 
 		if (userService.userList().isEmpty()) {
 			User admin = new User();
-			Set<Role> adminRoles = new HashSet<>();
-			adminRoles.add(roleService.getRole(1L));
-			adminRoles.add(roleService.getRole(2L));
 			admin.setId(1L);
 			admin.setName("Admin");
 			admin.setSurname("AA");
 			admin.setAge((byte) 37);
 			admin.setUsername("admin");
 			admin.setPassword("admin");
-			admin.setRoles(adminRoles);
+			admin.setRoles(new HashSet<>(List.of(new Role(2L,"ROLE_ADMIN"))));
 			userService.updateUser(admin);
 
 			User user = new User();
-			Set<Role> userRoles = new HashSet<>();
-			userRoles.add(roleService.getRole(1L));
 			user.setId(2L);
 			user.setName("User");
 			user.setSurname("UU");
 			user.setAge((byte) 27);
 			user.setUsername("user");
 			user.setPassword("user");
-			user.setRoles(userRoles);
+			user.setRoles(new HashSet<>());
 			userService.updateUser(user);
 		}
 	}

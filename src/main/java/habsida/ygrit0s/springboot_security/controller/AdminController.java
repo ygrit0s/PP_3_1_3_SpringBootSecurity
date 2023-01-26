@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 public class AdminController {
@@ -44,8 +45,12 @@ public class AdminController {
 	}
 	
 	@PostMapping("/admin/users/new")
-	public String addUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
-		if (!userService.addUser(user) | bindingResult.hasErrors() ) {
+	public String addUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			return "admin/users/new";
+		}
+		if (!userService.addUser(user)) {
+			model.addAttribute("usernameError", "This username is invalid or busy");
 			return "admin/users/new";
 		}
 		return "redirect:/admin/users";
@@ -69,8 +74,10 @@ public class AdminController {
 	}
 
 	@DeleteMapping("/admin/users/delete/{id}")
-	public String removeUser(@PathVariable("id") long id) {
-		userService.removeUser(id);
+	public String removeUser(@PathVariable("id") long id, Principal principal, Model model) {
+		if (!userService.removeUser(id, principal)) {
+			model.addAttribute("principalError", "You can't delete yourself");
+		}
 		return "redirect:/admin/users";
 	}
 }

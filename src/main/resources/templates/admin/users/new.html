@@ -59,7 +59,7 @@
             <td>
                 <label for="username">Enter username</label>
                 <input type="text" th:field="*{username}" id="username"/>
-                <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username invalid or already exist</div>
+                <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}">${usernameError}</div>
             </td>
         </tr>
         <tr>

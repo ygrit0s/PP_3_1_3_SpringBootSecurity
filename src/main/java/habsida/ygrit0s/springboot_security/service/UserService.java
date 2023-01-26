@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.security.Principal;
 
 @Service
 @Transactional
@@ -43,19 +44,19 @@ public class UserService implements UserDetailsService {
 		if (userDB != null) {
 			return false;
 		}
-		user.getRoles().add(new Role(1L, "ROLE_USER"));
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		userRepository.save(user);
+		updateUser(user);
 		return true;
 	}
 
 	public void updateUser(User user) {
+		user.getRoles().add(new Role(1L, "ROLE_USER"));
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userRepository.save(user);
 	}
 	
-	public boolean removeUser(Long id) {
-		if (userRepository.findById(id).isPresent()) {
+	public boolean removeUser(Long id, Principal principal) {
+		if (userRepository.findById(id).isPresent() &&
+				!id.equals(getByUsername(principal.getName()).getId())) {
 			userRepository.deleteById(id);
 			return true;
 		}
