@@ -42,6 +42,7 @@
         <th scope="col">Surname</th>
         <th scope="col">Age</th>
         <th scope="col">Username</th>
+        <th scope="col">Password</th>
         <th scope="col">Role</th>
         <th colspan="2" scope="col">Action</th>
     </tr>
@@ -51,6 +52,7 @@
         <td th:utext="${user.surname}">Surname</td>
         <td th:utext="${user.age}">Age</td>
         <td th:utext="${user.username}">Username</td>
+        <td th:utext="${user.password}">Password</td>
         <td th:utext="${user.roles}">Role</td>
         <td>
             <form th:action="@{'/admin/users/edit/' + ${user.id}}">

@@ -64,13 +64,13 @@
         <tr>
             <td>
                 <label for="username">Username</label>
-                <input readonly disabled type="text" th:field="*{username}" id="username"/>
+                <input type="text" th:field="*{username}" id="username"/>
                 <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error</div>
             </td>
         </tr>
         <tr>
             <td>
-                <label for="password">Enter password</label>
+                <label for="password">Password</label>
                 <input type="password" th:field="*{password}" id="password"/>
                 <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</div>
             </td>

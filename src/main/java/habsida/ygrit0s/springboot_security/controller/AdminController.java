@@ -66,8 +66,9 @@ public class AdminController {
 	}
 
 	@PatchMapping("/admin/users/edit/{id}")
-	public String updateUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+	public String updateUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
+			model.addAttribute("roleList", roleService.roleList());
 			return "admin/users/edit";
 		} else {
 			userService.updateUser(user);
